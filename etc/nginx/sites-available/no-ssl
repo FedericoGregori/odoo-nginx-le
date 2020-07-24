@@ -1,0 +1,5 @@
+# Simplistic server to listen to ACME challenge.
+server {
+    listen 80;
+    server_name foo-bar.calyx-cloud.com.ar;
+}
