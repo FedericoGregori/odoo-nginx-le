@@ -29,7 +29,7 @@ read -p "Ingrese el dominio principal: " PRI_DOM
 read -p "Ingrese los dominios secundarios separados por coma SIN espacios: " SEC_DOM
 
 # Build strings with all domains to use on Certbot request and NGINX server_name block.
-ALL_DOM="$PRI_DOM','$SEC_DOM"
+ALL_DOM="$PRI_DOM,$SEC_DOM"
 
 # Replace example domain with domains provided by user.
 echo "Replacing example domain with domains provided by user..."
