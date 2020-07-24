@@ -14,8 +14,8 @@
 echo "Updating and installing software-properties-common and NGINX..."
 sudo apt-get update && sudo apt-get install software-properties-common nginx -y
 
-# Now add the repositories Universe and Certbot.
-echo "Adding Universe and Certbot repositories..."
+# Now add the repositories Certbot.
+echo "Adding Certbot repositories..."
 sudo add-apt-repository ppa:certbot/certbot -y
 
 # Go to NGINX sites-* path and delete all. After that, create a dummy server for ACME challenge.
