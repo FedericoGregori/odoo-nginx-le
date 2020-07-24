@@ -34,8 +34,10 @@ ALL_DOM=$PRI_DOM', '$SEC_DOM
 # Replace example domain with domains provided by user.
 echo "Replacing example domain with domains provided by user..."
 sudo sed -i "s/foo-bar.calyx-cloud.com.ar/$ALL_DOM/g" odoo
+
 # As NGINX doesn't accepts comma separated values, we remove them.
 sudo sed -i "s/,//g" odoo
+
 # Restart NGINX server.
 echo "Restarting NGINX..."
 sudo service nginx restart
