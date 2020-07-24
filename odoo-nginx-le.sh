@@ -26,19 +26,23 @@ sudo wget -O odoo https://raw.githubusercontent.com/sotolucas/odoo-nginx-le/mast
 
 # Ask user to input domains.
 read -p "Ingrese el dominio principal: " PRI_DOM
-read -p "Ingrese los dominios secundarios: " SEC_DOM
-ALL_DOM=$PRI_DOM' '$SEC_DOM
+read -p "Ingrese los dominios secundarios separados por coma: " SEC_DOM
+
+# Build strings with all domains to use on Certbot request and NGINX server_name block.
+ALL_DOM=$PRI_DOM', '$SEC_DOM
+
 # Replace example domain with domains provided by user.
 echo "Replacing example domain with domains provided by user..."
 sudo sed -i "s/foo-bar.calyx-cloud.com.ar/$ALL_DOM/g" odoo
-
+# As NGINX doesn't accepts comma separated values, we remove them.
+sudo sed -i "s/,//g" odoo
 # Restart NGINX server.
 echo "Restarting NGINX..."
 sudo service nginx restart
 
 # Issue SSL Let's Encrypt! certificate.
 echo "Issuing SSL Let's Encrypt! certificate..."
-sudo certbot --nginx --non-interactive --agree-tos -m lsoto@calyxservicios.com.ar
+sudo certbot --nginx --non-interactive --domains $ALL_DOM --agree-tos -m lsoto@calyxservicios.com.ar
 
 # Go to NGINX sites-* path and delete all. After that, create definitive server.
 echo "Removing ACME challenge NGINX servers and creating server for Odoo..."
@@ -52,7 +56,9 @@ sudo wget -O odoo https://raw.githubusercontent.com/sotolucas/odoo-nginx-le/mast
 sudo sed -i "s/server_name foo-bar.calyx-cloud.com.ar/$ALL_DOM/g" odoo
 sudo sed -i "s/foo-bar.calyx-cloud.com.ar/$PRI_DOM/g" odoo
 
+# As NGINX doesn't accepts comma separated values, we remove them.
+sudo sed -i "s/,//g" odoo
+
 # Restart NGINX server.
 echo "Restarting NGINX..."
 sudo service nginx restart
-
