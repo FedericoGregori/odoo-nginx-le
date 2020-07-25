@@ -52,6 +52,14 @@ server {
         proxy_pass http://longpolling;
     }
 
+    # Cache static files.
+    location ~* /web/static/ {
+        proxy_cache_valid 200 90m;
+        proxy_buffering on;
+        expires 864000;
+        proxy_pass http://odoo;
+    }
+
     # Common GZIP compression.
     gzip_types text/css text/scss text/plain text/xml application/xml application/json application/javascript;
     gzip on;
