@@ -9,6 +9,9 @@
 #
 ###################################################################################################
 
+# Run some stuff to fix broken packages, still wondering why...
+sudo dpkg --configure -a && sudo apt-get -f install
+
 # Now add the repositories Certbot.
 echo "Adding Certbot repositories..."
 sudo add-apt-repository ppa:certbot/certbot -y
