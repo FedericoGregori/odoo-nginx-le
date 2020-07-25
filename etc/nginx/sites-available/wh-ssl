@@ -49,7 +49,7 @@ server {
 
     # Redirect longpoll requests to Odoo's longpolling port.
 	location /longpolling {
-        proxy_pass http://odoochat;
+        proxy_pass http://longpolling;
     }
 
     # Common GZIP compression.
